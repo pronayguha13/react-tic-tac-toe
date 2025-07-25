@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 25%;
+
+  .scoreboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

@@ -1,31 +1,13 @@
 import "./style.css";
 
 type SquareProps = {
+  content: string;
   handleClick: () => void;
-  isSelected: boolean;
-  player: string | null;
 };
-function Square({ isSelected, player, handleClick }: SquareProps) {
-  const onClickSquare = () => {
-    if (!isSelected) {
-      handleClick();
-    }
-  };
-
-  const getCellContent = () => {
-    if (player === "firstPlayer") {
-      return "X";
-    }
-    else if (player === "secondPlayer") {
-      return "O";
-    }
-    else {
-      return "";
-    }
-  };
+function Square({ content, handleClick }: SquareProps) {
   return (
-    <div className="square" onClick={onClickSquare}>
-      {getCellContent()}
+    <div className="square" onClick={handleClick}>
+      {content}
     </div>
   );
 }

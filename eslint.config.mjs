@@ -27,7 +27,7 @@ export default antfu(
     rules: {
       "ts/no-redeclare": "off",
       "ts/consistent-type-definitions": ["error", "type"],
-      "no-console": ["warn"],
+      "no-console": ["warn", { allow: ["log"] }],
       "antfu/no-top-level-await": ["off"],
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
@@ -38,7 +38,7 @@ export default antfu(
         },
       ],
       "unicorn/filename-case": [
-        "error",
+        "warn",
         {
           case: "kebabCase",
           ignore: ["README.md"],
