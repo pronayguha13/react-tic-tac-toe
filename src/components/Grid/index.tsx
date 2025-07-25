@@ -1,26 +1,24 @@
 import { useState } from "react";
+
 import Square from "../Square";
 import "./style.css";
-const Grid = () => {
+
+function Grid() {
   const [isFirstPlayerTurn, setIsFirstPlayerTurn] = useState<boolean>(true);
   const [playerMoves, setPlayerMoves] = useState<Map<string, Array<number>>>(
-    new Map([
+    () => new Map([
       ["firstPlayer", []],
       ["secondPlayer", []],
-    ])
+    ]),
   );
 
   const updatePlayerMove = (player: string, cellNumber: number) => {
     const updatedPlayerMoves = new Map(playerMoves);
-    console.log(updatedPlayerMoves.values());
     const existingMoves = updatedPlayerMoves.get(player) || [];
-    // const opponentMoves = updatedPlayerMove.get("")
-    if (existingMoves.includes(cellNumber)) {
-      window.alert("Alreday selected");
-    } else {
-      updatedPlayerMoves.set(player, [...existingMoves, cellNumber]);
-      setPlayerMoves(updatedPlayerMoves);
-    }
+
+    updatedPlayerMoves.set(player, [...existingMoves, cellNumber]);
+    setPlayerMoves(updatedPlayerMoves);
+    setIsFirstPlayerTurn(prev => !prev);
   };
   /**
    * @description Function to handle user move by clicking on any Square component
@@ -29,17 +27,67 @@ const Grid = () => {
   const handleClick = (cellNumber: number) => {
     updatePlayerMove(
       isFirstPlayerTurn ? "firstPlayer" : "secondPlayer",
-      cellNumber
+      cellNumber,
     );
-    setIsFirstPlayerTurn((prev) => !prev);
   };
+  /**
+   * @description Function to get whether a cell is selected or not
+   * @param cellIndex index of the cell
+   * @returns {boolean} whether the cell is selected or not
+   */
+  const getIsSelected = (cellIndex: number): boolean => {
+    const firstPlayerMoves: Array<number>
+      = playerMoves.get("firstPlayer") || [];
+
+    const secondPlayerMoves: Array<number>
+      = playerMoves.get("secondPlayer") || [];
+
+    return (
+      firstPlayerMoves.includes(cellIndex)
+      || secondPlayerMoves.includes(cellIndex)
+    );
+  };
+  /**
+   * @description Function to decide whether the cell is selected or not and by whom
+   * @param cellIndex index of the cell selected
+   * @returns {string | null} name of the selected player or null
+   */
+  const getPlayerSelection = (cellIndex: number): string | null => {
+    const firstPlayerMoves: Array<number>
+      = playerMoves.get("firstPlayer") || [];
+
+    const secondPlayerMoves: Array<number>
+      = playerMoves.get("secondPlayer") || [];
+
+    if (firstPlayerMoves.includes(cellIndex))
+      return "firstPlayer";
+    if (secondPlayerMoves.includes(cellIndex))
+      return "secondPlayer";
+
+    return null;
+  };
+
+  const findPattern = () => {
+    const firstPlayerMoves = playerMoves.get("firstPlayer") || [];
+    const secondPlayerMoves = playerMoves.get("secondPlayer") || [];
+    // if there are less than three moves then move on
+    // if (isFirstPlayerTurn) {
+
+    // }
+  };
+
   return (
     <div className="grid">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((el, index) => (
-        <Square key={index} handleClick={() => handleClick(index)} />
+        <Square
+          key={el}
+          handleClick={() => handleClick(index)}
+          isSelected={getIsSelected(index)}
+          player={getPlayerSelection(index)}
+        />
       ))}
     </div>
   );
-};
+}
 
 export default Grid;
