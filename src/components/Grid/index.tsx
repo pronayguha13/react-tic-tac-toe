@@ -67,14 +67,14 @@ function Grid() {
     return null;
   };
 
-  const findPattern = () => {
-    const firstPlayerMoves = playerMoves.get("firstPlayer") || [];
-    const secondPlayerMoves = playerMoves.get("secondPlayer") || [];
-    // if there are less than three moves then move on
-    // if (isFirstPlayerTurn) {
+  // const findPattern = () => {
+  //   const firstPlayerMoves = playerMoves.get("firstPlayer") || [];
+  //   const secondPlayerMoves = playerMoves.get("secondPlayer") || [];
+  //   // if there are less than three moves then move on
+  //   // if (isFirstPlayerTurn) {
 
-    // }
-  };
+  //   // }
+  // };
 
   return (
     <div className="grid">
