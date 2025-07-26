@@ -91,15 +91,15 @@ function Grid({ updateScore }: { updateScore: (winner: string) => void }) {
       updateScore(winner);
       resetGame();
     }
-
-    if (moveCount.current === 9)
-      resetGame();
   }, [winner]);
 
   useEffect(() => {
-    if (moveCount.current >= 5) {
+    if (moveCount.current >= 5 && moveCount.current <= 9) {
       checkWinner();
     }
+
+    if (moveCount.current === 9)
+      resetGame();
   }, [moveCount.current]);
 
   const paintBoard = () =>
